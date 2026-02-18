@@ -286,6 +286,17 @@
   nav ul{ display:none; }
   nav ul.open{ display:block; }
 }
+    /* Make mobile dropdown appear above the hero */
+@media (max-width: 820px){
+  header{ position: relative; z-index: 3000; }   /* header above page content */
+  .nav{ position: relative; z-index: 3001; }     /* anchor + raise */
+  nav{ position: relative; z-index: 3002; }
+
+  nav ul{
+    z-index: 5000; /* dropdown highest */
+  }
+}
+
 
   </style>
 </head>
@@ -562,6 +573,7 @@ document.addEventListener("click", (e) => {
   </script>
 </body>
 </html>
+
 
 
 
