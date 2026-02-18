@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>YSD — Sporting NGO</title>
+  <meta name="description" content="Youth For Sport and Development — community sports programs that empower youth through coaching, equipment and events." />
+
+  <style>
+    :root{
+      --accent:#2b8aef;
+      --dark:#0b1220;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --bg:#f4f7fb;
+      --radius:12px;
+      --glass: rgba(26, 25, 25, 0.65);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--dark);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    
+
+    /* container */
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+
+    /* header / nav */
+    header{background:linear-gradient(180deg, rgba(43,138,239,0.06), transparent);backdrop-filter: blur(4px);}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0; position:relative;}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+  width:50px;
+  height:50px;
+  border-radius:10px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:white;
+}
+
+.logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain; /* keeps full logo visible */
+}
+
+    nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
+    nav a{color:var(--dark);text-decoration:none;padding:6px 10px;border-radius:8px}
+    nav a:hover{background:#5e6166}
+    .cta{background:var(--accent);color:#fff;padding:8px 12px;border-radius:10px;text-decoration:none}
+
+    /* mobile menu */
+    .menu-toggle{display:none;border:0;background:transparent;font-size:20px}
+    @media (max-width:820px){
+      nav ul{
+        display:none;
+        position:absolute;
+        right:24px;
+        top:70px;
+        flex-direction:column;
+        background:var(--glass);
+        padding:12px;
+        border-radius:10px;
+        box-shadow:0 6px 18px rgba(11,18,32,0.08)
+      }
+      nav ul.open{display:flex}
+      .menu-toggle{display:block}
+    }
+
+    /* reusable card + stats (you used these, now they’re defined) */
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 14px rgba(11,18,32,0.04)}
+    .stats{display:flex;gap:12px;flex-wrap:wrap}
+    .stat{background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.18);padding:10px 12px;border-radius:12px;min-width:140px}
+    .stat b{display:block;font-size:18px;margin-top:2px}
+
+    /* hero with background image */
+    .hero{
+      position:relative;
+      display:grid;
+      grid-template-columns:1fr 420px;
+      gap:24px;
+      align-items:center;
+      padding:48px 24px;
+      border-radius:16px;
+      background:
+        linear-gradient(rgba(11,18,32,0.65), rgba(11,18,32,0.65)),
+        url('https://via.placeholder.com/1400x800?text=Community+Sports') center/cover no-repeat;
+      color:#fff;
+    }
+    .hero h1{margin:0 0 8px;font-size:28px}
+    .hero p{margin:0 0 18px;color:#27282c}
+    .hero .card{background:rgba(255,255,255,0.95);color:var(--dark);box-shadow:0 8px 20px rgba(11,18,32,0.2)}
+
+    @media (max-width:820px){
+      .hero{grid-template-columns:1fr;padding:36px 18px}
+    }
+
+    /* sections */
+    section{padding:26px 0}
+    h2{margin:0 0 12px}
+    .grid{display:grid;gap:12px}
+
+    /* programs */
+    .programs{grid-template-columns:repeat(3,1fr)}
+    .program{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 14px rgba(11,18,32,0.04)}
+    .program h3{margin:0 0 8px}
+    @media (max-width:920px){.programs{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:560px){.programs{grid-template-columns:1fr}}
+
+    /* events */
+    .events{grid-template-columns:1fr 300px}
+    @media (max-width:820px){.events{grid-template-columns:1fr}}
+
+  .event-thumb{
+  width:140px;
+  height:90px;
+  border-radius:10px;
+  flex-shrink:0;
+  object-fit:cover;
+}
+ /* gallery slider (fade) */
+    .gallery-slider{
+      position:relative;
+      max-width:800px;
+      margin:0 auto;
+      overflow:hidden;
+      border-radius:12px;
+    }
+    .gallery-slider img{
+      width:100%;
+      height:420px;
+      object-fit:cover;
+      position:absolute;
+      left:0;
+      top:0;
+      opacity:0;
+      transition:opacity 1s ease-in-out;
+    }
+    .gallery-slider img.active{
+      opacity:1;
+      position:relative;
+    }
+    .gallery-btn{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background:rgba(0,0,0,0.5);
+      color:#fff;
+      border:0;
+      border-radius:999px;
+      width:40px;
+      height:40px;
+      cursor:pointer;
+      z-index:2;
+      display:grid;
+      place-items:center;
+      font-size:18px;
+    }
+    .gallery-btn.prev{left:10px}
+    .gallery-btn.next{right:10px}
+    @media (max-width:560px){.gallery-slider img{height:260px}}
+
+    /* team */
+    .team{grid-template-columns:repeat(3,1fr)}
+    .member{background:var(--card);padding:12px;border-radius:10px;text-align:center}
+    .avatar{width:88px;height:88px;border-radius:999px;display:block;margin:0 auto 8px;object-fit:cover}
+    @media (max-width:920px){.team{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:560px){.team{grid-template-columns:1fr}}
+
+    /* contact */
+    form{display:grid;gap:12px}
+    input,textarea{padding:10px;border-radius:8px;border:1px solid #e6eefc}
+    button{padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:#fff}
+
+    footer{padding:26px 0;color:var(--muted);font-size:14px}
+
+    /* small helpers */
+    .muted{
+  color:#414347; /* darker gray */
+}
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">
+  <img src="images/LOGO.jpg" alt="YSD Logo">
+            </div>
+        <div>
+          <div style="font-weight:700">Youth For Sport and Development</div>
+          <div class="muted" style="font-size:13px">Community Sporting NGO</div>
+        </div>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <button class="menu-toggle" aria-expanded="false" aria-controls="main-menu">☰</button>
+        <ul id="main-menu">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a class="cta" href="#donate">Donate</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="home" class="hero">
+      <div>
+        <h1>We bring sport to every child — building health, skills and hope.</h1>
+        <p>Youth For Sport and Development runs coaching programs, equipment drives, and community events that make sport accessible to youth in underserved neighbourhoods.</p>
+
+        <div class="card" style="margin-top:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+            <div>
+              <strong>Join our next community coaching day</strong>
+              <div class="muted" style="font-size:13px">Sat, Feb 7 • Munuki</div>
+            </div>
+            <a class="cta" href="#events">Sign up</a>
+          </div>
+        </div>
+
+        <div style="margin-top:16px" class="stats">
+          <div class="stat"><span class="muted">Youth reached</span><b>1,420</b></div>
+          <div class="stat"><span class="muted">Events run</span><b>86</b></div>
+          <div class="stat"><span class="muted">Volunteers</span><b>230</b></div>
+        </div>
+      </div>
+
+      <aside class="card">
+        <h3 style="margin-top:0">Latest news</h3>
+        <p> We delivered 300+ new balls and kits to three community centers last month. Thank you to our supporters!</p>
+
+        <h4 style="margin-top:12px">Quick links</h4>
+        <ul class="muted" style="padding-left:18px">
+          <li>Volunteer</li>
+          <li>Report an issue</li>
+          <li>Partner with us</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="programs">
+      <h2>Our programs</h2>
+      <div class="grid programs">
+        <div class="program">
+          <h3>Youth Coaching</h3>
+          <p class="muted">Free weekly coaching sessions for ages 8–18 with trained local coaches.</p>
+        </div>
+        <div class="program">
+          <h3>Equipment Drives</h3>
+          <p class="muted">We collect and distribute balls, shoes and kits to community teams.</p>
+        </div>
+        <div class="program">
+          <h3>School Partnerships</h3>
+          <p class="muted">After-school programmes and teacher training for sustainable sports activities.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="events">
+  <h2>Upcoming events</h2>
+
+  <div class="events-coloumn">
+
+    <div class="event-card">
+      <img src="images/Dudus.jpg" alt="Event" class="event-thumb">
+      <div>
+        <strong>Community Day</strong>
+        <div class="muted">Sat, Feb 7 • Munuki</div>
+      </div>
+    </div>
+
+    <div class="event-card">
+      <img src="images/Moulana.jpg" alt="Event" class="event-thumb">
+      <div>
+        <strong>Football Training Camp</strong>
+        <div class="muted">March 10 • Juba</div>
+      </div>
+    </div>
+    <div class="event-card">
+      <img src="images/trophy.jpg" alt="Event" class="event-thumb">
+      <div>
+        <strong>Trophy fun day</strong>
+        <div class="muted">April 15 • Rajaf</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+        </div>
+        <aside class="card">
+          <h3 style="margin-top:0">Be a volunteer</h3>
+          <p class="muted">Help at events, coach, or assist with logistics — flexible shifts available.</p>
+          <a class="cta" href="#contact" style="display:inline-block;margin-top:10px">Get involved</a>
+        </aside>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <h2>Gallery</h2>
+      <div class="gallery-slider" id="ysd-gallery">
+  <button class="gallery-btn prev" aria-label="Previous image">‹</button>
+  <button class="gallery-btn next" aria-label="Next image">›</button>
+
+  <div class="gallery-track">
+    <img class="gallery-slide" alt="Children playing football" src="images/Dudus.jpg" />
+    <img class="gallery-slide" alt="Coaching session" src="images/Dribbling.jpg" />
+    <img class="gallery-slide" alt="Equipment drive" src="images/Moulana.jpg" />
+    <img class="gallery-slide" alt="Community event" src="images/program.jpg" />
+  </div>
+
+  <div class="gallery-dots" aria-label="Gallery pagination"></div>
+</div>
+
+    </section>
+
+    <section id="team">
+      <h2>Meet the team</h2>
+      <div class="grid team">
+        <div class="member">
+          <img class="avatar" src="images/program.jpg" alt="Tongun - Coach" />
+          <strong>Tongun</strong>
+          <div class="muted">Coach</div>
+        </div>
+        <div class="member">
+          <img class="avatar" src="images/Moulana.jpg" alt="Tony - Outreach" />
+          <strong>Tony</strong>
+          <div class="muted">Outreach</div>
+        </div>
+        <div class="member">
+          <img class="avatar" src="images/Dudus.jpg" alt="Wani - Operations" />
+          <strong>Wani</strong>
+          <div class="muted">Operations</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact & Donate</h2>
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start">
+        <form id="contact-form">
+          <input id="name" placeholder="Your name" required />
+          <input id="email" type="email" placeholder="Email address" required />
+          <textarea id="message" rows="5" placeholder="Message or how you'd like to help" required></textarea>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button type="submit">Send message</button>
+            <a class="cta" id="donate" href="mailto:info@ysd.org?subject=Donation" style="display:inline-block;align-self:center">Donate</a>
+          </div>
+        </form>
+
+        <aside class="card">
+          <h3 style="margin-top:0">Office</h3>
+          <div class="muted">Juba Community Centre<br/>JUBA • SOUTH SUDAN</div>
+          <h4 style="margin-top:12px">Email</h4>
+          <div class="muted">info@ysd.org</div>
+          <h4 style="margin-top:12px">Phone</h4>
+          <div class="muted">+211 456 7890</div>
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+        <div class="muted">© Youth For Sport and Development • Empowering youth through sport</div>
+        <div class="muted">Follow us: Instagram • Facebook</div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // ✅ Mobile menu toggle
+    const toggle = document.querySelector(".menu-toggle");
+    const menu = document.querySelector("#main-menu");
+    toggle.addEventListener("click", () => {
+      const isOpen = menu.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    // ✅ Auto + buttons gallery slider
+    const slides = document.querySelectorAll(".gallery-slider img");
+    const nextBtn = document.querySelector(".gallery-btn.next");
+    const prevBtn = document.querySelector(".gallery-btn.prev");
+    let current = 0;
+    let timer = null;
+
+    function showSlide(i){
+      slides.forEach(s => s.classList.remove("active"));
+      slides[i].classList.add("active");
+      current = i;
+    }
+
+    function nextSlide(){
+      showSlide((current + 1) % slides.length);
+    }
+
+    function prevSlide(){
+      showSlide((current - 1 + slides.length) % slides.length);
+    }
+
+    function startAuto(){
+      stopAuto();
+      timer = setInterval(nextSlide, 3000); // every 3 sec
+    }
+
+    function stopAuto(){
+      if (timer) clearInterval(timer);
+    }
+
+    nextBtn.addEventListener("click", () => { nextSlide(); startAuto(); });
+    prevBtn.addEventListener("click", () => { prevSlide(); startAuto(); });
+
+    // start autoplay
+    startAuto();
+
+    // ✅ simple contact form (no backend)
+    document.querySelector("#contact-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Thanks! Your message was recorded (demo).");
+      e.target.reset();
+    });
+    
+  </script>
+</body>
+</html>
