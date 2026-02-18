@@ -60,22 +60,43 @@
     .cta{background:var(--accent);color:#fff;padding:8px 12px;border-radius:10px;text-decoration:none}
 
     /* mobile menu */
-    .menu-toggle{display:none;border:0;background:transparent;font-size:20px}
-    @media (max-width:820px){
-      nav ul{
-        display:none;
-        position:absolute;
-        right:24px;
-        top:70px;
-        flex-direction:column;
-        background:var(--glass);
-        padding:12px;
-        border-radius:10px;
-        box-shadow:0 6px 18px rgba(11,18,32,0.08)
-      }
-      nav ul.open{display:flex}
-      .menu-toggle{display:block}
-    }
+@media (max-width:820px){
+  .nav{ position: relative; } /* anchors dropdown */
+
+  nav ul{
+    display:none;
+    position:absolute;
+    top:65px;
+    right:16px;
+    width:220px;
+
+    background:#ffffff;              /* solid white */
+    padding:12px;
+    margin:0;
+
+    border-radius:14px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.18);
+    z-index:2000;
+  }
+
+  nav ul.open{ display:block; }
+
+  nav ul li{ margin:0; }
+
+  nav ul a{
+    display:block;
+    padding:12px;
+    border-radius:10px;
+    color:var(--dark);
+  }
+
+  nav ul a:hover{
+    background:#e6f0ff;
+  }
+
+  .menu-toggle{ display:block; }
+}
+
 
     /* reusable card + stats (you used these, now they’re defined) */
     .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 14px rgba(11,18,32,0.04)}
@@ -449,13 +470,33 @@
   </main>
 
   <script>
-    // ✅ Mobile menu toggle
-    const toggle = document.querySelector(".menu-toggle");
-    const menu = document.querySelector("#main-menu");
-    toggle.addEventListener("click", () => {
-      const isOpen = menu.classList.toggle("open");
-      toggle.setAttribute("aria-expanded", String(isOpen));
-    });
+    // ===== Mobile menu toggle (Improved) =====
+const toggle = document.querySelector(".menu-toggle");
+const menu = document.querySelector("#main-menu");
+
+// Toggle menu when clicking hamburger
+toggle.addEventListener("click", (e) => {
+  e.stopPropagation();
+  const isOpen = menu.classList.toggle("open");
+  toggle.setAttribute("aria-expanded", String(isOpen));
+});
+
+// Close menu when clicking a link
+document.querySelectorAll('#main-menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    menu.classList.remove('open');
+    toggle.setAttribute("aria-expanded", "false");
+  });
+});
+
+// Close menu when clicking outside
+document.addEventListener("click", (e) => {
+  if (!e.target.closest("nav")) {
+    menu.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+  }
+});
+
 
     // ✅ Auto + buttons gallery slider
     const slides = document.querySelectorAll(".gallery-slider img");
@@ -503,6 +544,7 @@
   </script>
 </body>
 </html>
+
 
 
 
