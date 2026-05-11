@@ -338,7 +338,7 @@
         </ul>
       </nav>
 
-      <a class="cta" href="#donate">Donate</a>
+    
     </div>
   </header>
 
@@ -482,28 +482,42 @@
     </section>
 
     <section id="contact">
-      <h2>Contact & Donate</h2>
-      <div style="display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start">
-        <form id="contact-form">
-          <input id="name" placeholder="Your name" required />
-          <input id="email" type="email" placeholder="Email address" required />
-          <textarea id="message" rows="5" placeholder="Message or how you'd like to help" required></textarea>
-          <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <button type="submit">Send message</button>
-            <a class="cta" id="donate" href="mailto:miminsuk94@gmail.com?subject=Donation" style="display:inline-block;align-self:center">Donate</a>
-          </div>
-        </form>
+  <h2>Contact Us</h2>
 
-        <aside class="card">
-          <h3 style="margin-top:0">Office</h3>
-          <div class="muted">Juba Community Centre<br/>JUBA • SOUTH SUDAN</div>
-          <h4 style="margin-top:12px">Email</h4>
-          <div class="muted">info@ysd.org</div>
-          <h4 style="margin-top:12px">Phone</h4>
-          <div class="muted">+211 980 821 548 / +211 920 115 239</div>
-        </aside>
+  <div style="display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start">
+
+    <!-- Contact Form -->
+    <form id="contact-form">
+      <input id="name" placeholder="Your name" required />
+
+      <input id="email" type="email" placeholder="Email address" required />
+
+      <textarea id="message" rows="5"
+        placeholder="Message or how you'd like to help"
+        required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+
+    <!-- Contact Info -->
+    <aside class="card">
+      <h3 style="margin-top:0">Office</h3>
+      <div class="muted">
+        Juba Community Centre<br/>
+        JUBA • SOUTH SUDAN
       </div>
-    </section>
+
+      <h4 style="margin-top:12px">Email</h4>
+      <div class="muted">miminsuk94@gmail.com</div>
+
+      <h4 style="margin-top:12px">Phone</h4>
+      <div class="muted">
+        +211 980 821 548 / +211 920 115 239
+      </div>
+    </aside>
+
+  </div>
+</section>
 
     <footer>
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
@@ -514,80 +528,28 @@
   </main>
 
   <script>
-    // ===== Mobile menu toggle (Improved) =====
-const toggle = document.querySelector(".menu-toggle");
-const menu = document.querySelector("#main-menu");
+document.querySelector("#contact-form").addEventListener("submit", (e) => {
+  e.preventDefault();
 
-// Toggle menu when clicking hamburger
-toggle.addEventListener("click", (e) => {
-  e.stopPropagation();
-  const isOpen = menu.classList.toggle("open");
-  toggle.setAttribute("aria-expanded", String(isOpen));
+  const name = document.querySelector("#name").value;
+  const email = document.querySelector("#email").value;
+  const message = document.querySelector("#message").value;
+
+  const subject = encodeURIComponent("New Message from YSD Website");
+
+  const body = encodeURIComponent(
+    `Name: ${name}\n` +
+    `Email: ${email}\n\n` +
+    `Message:\n${message}`
+  );
+
+  window.location.href =
+    `mailto:miminsuk94@gmail.com?subject=${subject}&body=${body}`;
 });
-
-// Close menu when clicking a link
-document.querySelectorAll('#main-menu a').forEach(link => {
-  link.addEventListener('click', () => {
-    menu.classList.remove('open');
-    toggle.setAttribute("aria-expanded", "false");
-  });
-});
-
-// Close menu when clicking outside
-document.addEventListener("click", (e) => {
-  if (!e.target.closest("nav")) {
-    menu.classList.remove("open");
-    toggle.setAttribute("aria-expanded", "false");
-  }
-});
-
-
-    // ✅ Auto + buttons gallery slider
-    const slides = document.querySelectorAll(".gallery-slider img");
-    const nextBtn = document.querySelector(".gallery-btn.next");
-    const prevBtn = document.querySelector(".gallery-btn.prev");
-    let current = 0;
-    let timer = null;
-
-    function showSlide(i){
-      slides.forEach(s => s.classList.remove("active"));
-      slides[i].classList.add("active");
-      current = i;
-    }
-
-    function nextSlide(){
-      showSlide((current + 1) % slides.length);
-    }
-
-    function prevSlide(){
-      showSlide((current - 1 + slides.length) % slides.length);
-    }
-
-    function startAuto(){
-      stopAuto();
-      timer = setInterval(nextSlide, 3000); // every 3 sec
-    }
-
-    function stopAuto(){
-      if (timer) clearInterval(timer);
-    }
-
-    nextBtn.addEventListener("click", () => { nextSlide(); startAuto(); });
-    prevBtn.addEventListener("click", () => { prevSlide(); startAuto(); });
-
-    // start autoplay
-    startAuto();
-
-    // ✅ simple contact form (no backend)
-    document.querySelector("#contact-form").addEventListener("submit", (e) => {
-      e.preventDefault();
-      alert("Thanks! Your message was sent successfully.");
-      e.target.reset();
-    });
-    
-  </script>
+</script>
 </body>
 </html>
+
 
 
 
