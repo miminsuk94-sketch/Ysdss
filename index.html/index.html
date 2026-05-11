@@ -202,6 +202,15 @@
     .gallery-btn.next{right:10px}
     @media (max-width:560px){.gallery-slider img{height:260px}}
 
+    .gallery-slide{
+  opacity:0;
+  transition:opacity 1s ease-in-out;
+}
+
+.gallery-slide.active{
+  opacity:1;
+}
+
     /* team */
     .team{grid-template-columns:repeat(3,1fr)}
     .member{background:var(--card);padding:12px;border-radius:10px;text-align:center}
@@ -444,15 +453,15 @@
   <button class="gallery-btn next" aria-label="Next image">›</button>
 
   <div class="gallery-track">
-    <img class="gallery-slide" alt="Children playing football" src="Images/Dudus.jpg" />
-    <img class="gallery-slide" alt="Coaching session" src="Images/Dribbling.jpg" />
-    <img class="gallery-slide" alt="Equipment drive" src="Images/Moulana.jpg" />
-    <img class="gallery-slide" alt="Community event" src="Images/program.jpg" />
-    <img class="gallery-slide" alt="Community event" src="Images/Traning session.jpg" />
-    <img class="gallery-slide" alt="Community event" src="Images/ysd gp.jpg" />
-    <img class="gallery-slide" alt="saint mark" src="Images/saint mark.jpg" />
-    <img class="gallery-slide" alt="saint mark" src="Images/st.jpg" />
-    <img class="gallery-slide" alt="saint mark" src="Images/st2.jpg" />
+    <img class="gallery-slide active" alt="Children playing football" src="Images/Dudus.jpg" />
+    <img class="gallery-slide active" alt="Coaching session" src="Images/Dribbling.jpg" />
+    <img class="gallery-slide active" alt="Equipment drive" src="Images/Moulana.jpg" />
+    <img class="gallery-slide active" alt="Community event" src="Images/program.jpg" />
+    <img class="gallery-slide active" alt="Community event" src="Images/Traning session.jpg" />
+    <img class="gallery-slide active" alt="Community event" src="Images/ysd gp.jpg" />
+    <img class="gallery-slide active" alt="saint mark" src="Images/saint mark.jpg" />
+    <img class="gallery-slide active" alt="saint mark" src="Images/st.jpg" />
+    <img class="gallery-slide active" alt="saint mark" src="Images/st2.jpg" />
   </div>
 
   <div class="gallery-dots" aria-label="Gallery pagination"></div>
