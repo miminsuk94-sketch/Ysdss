@@ -584,6 +584,12 @@
       .logo{
         width:44px;
         height:44px;
+ 
+        
+        #form-status{
+  margin-top:12px;
+  font-weight:600;
+}
       }
     }
   </style>
@@ -1026,9 +1032,11 @@
             ></textarea>
           </div>
 
-          <button type="submit">
-            Send Message
-          </button>
+         <button type="submit">
+                  Send Message
+                    </button>
+
+            <p id="form-status"></p>
 
         </form>
 
@@ -1111,31 +1119,6 @@
        CONTACT FORM
     ========================== */
 
-    const form = document.querySelector("#contact-form");
-
-    form.addEventListener("submit", (e) => {
-
-      e.preventDefault();
-
-      const name =
-        document.querySelector("#name").value.trim();
-
-      const email =
-        document.querySelector("#email").value.trim();
-
-      const message =
-        document.querySelector("#message").value.trim();
-
-      const subject = encodeURIComponent(
-        "New Message from YSD Website"
-      );
-
-      const body = encodeURIComponent(
-        `Name: ${name}\n` +
-        `Email: ${email}\n\n` +
-        `Message:\n${message}`
-      );
-
     <script>
 
 const form = document.querySelector("#contact-form");
@@ -1146,19 +1129,24 @@ form.addEventListener("submit", async (e) => {
 
   const button = form.querySelector("button");
 
+  const status =
+    document.querySelector("#form-status");
+
   button.disabled = true;
   button.innerText = "Sending...";
+
+  status.innerText = "";
 
   const templateParams = {
 
     from_name:
-      document.querySelector("#name").value,
+      document.querySelector("#name").value.trim(),
 
     from_email:
-      document.querySelector("#email").value,
+      document.querySelector("#email").value.trim(),
 
     message:
-      document.querySelector("#message").value
+      document.querySelector("#message").value.trim()
 
   };
 
@@ -1170,10 +1158,10 @@ form.addEventListener("submit", async (e) => {
       templateParams
     );
 
-    document.querySelector("#form-status").innerText =
-"Message sent successfully ✔️";
+    status.style.color = "green";
 
-    <p id="form-status"></p>;
+    status.innerText =
+      "Message sent successfully ✔️";
 
     form.reset();
 
@@ -1181,7 +1169,10 @@ form.addEventListener("submit", async (e) => {
 
     console.error(error);
 
-    alert("Failed to send message ❌");
+    status.style.color = "red";
+
+    status.innerText =
+      "Failed to send message ❌";
 
   }
 
